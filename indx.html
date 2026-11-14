@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love 🌙</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:Arial;
+  background: radial-gradient(circle at top, #1b1b2f, #000);
+  color:white;
+}
+
+/* 🌙 قمر */
+.moon{
+  position:fixed;
+  top:50px;
+  left:-100px;
+  font-size:70px;
+  animation:moonMove 25s linear infinite;
+}
+
+@keyframes moonMove{
+  0%{left:-100px;}
+  100%{left:110%;}
+}
+
+/* 📱 مركز */
+.center{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  width:90%;
+}
+
+/* input */
+input{
+  padding:12px;
+  font-size:18px;
+  text-align:center;
+  border-radius:10px;
+}
+
+button{
+  padding:10px 20px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+}
+
+/* 💌 ظرف */
+#envelope{
+  display:none;
+  font-size:80px;
+  cursor:pointer;
+  animation:pop 1.5s infinite alternate;
+}
+
+@keyframes pop{
+  from{transform:scale(1);}
+  to{transform:scale(1.1);}
+}
+
+/* 📄 الورقة */
+#paper{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:white;
+  color:black;
+  padding:20px;
+  font-size:20px;
+  overflow:auto;
+}
+
+/* 🌹❤️ المطر */
+.fall{
+  position:fixed;
+  top:-10px;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="moon">🌙</div>
+
+<!-- تسجيل دخول -->
+<div class="center" id="login">
+  <h3>اكتب كلمة السر 🌹</h3>
+  <input id="pass" placeholder="9013">
+  <br>
+  <button onclick="check()">دخول</button>
+</div>
+
+<!-- ظرف -->
+<div id="envelope" class="center" onclick="openLetter()">💌 افتح الرسالة</div>
+
+<!-- ورقة -->
+<div id="paper"></div>
+
+<script>
+
+let text = `رحومتي 🌙✨
+
+أنا مش عارف أبدأ منين بس كل اللي جوايا ليكي إنتي بس 💖
+
+من أول لحظة شوفتك فيها وأنا حاسس إن في حاجة مختلفة حصلت في قلبي،
+حاجة عمري ما حسيتها قبل كده…
+
+إنتي مش مجرد شخص عادي في حياتي،
+إنتي الهدوء وسط الزحمة،
+والأمان وسط التعب،
+والسبب اللي خلاني ابتسم من غير ما أحس ❤️
+
+كل يوم بعد ما عرفتك وأنا بفكر فيك أكتر من نفسي،
+وبحاول ألاقي كلام يوصف اللي جوايا بس مش لاقي…
+
+لو الدنيا كلها اختفت،
+يكفيني إنك موجودة فيها إنتي بس 🌙
+
+أنا بحبك 💖`;
+
+function check(){
+  if(document.getElementById("pass").value=="9013"){
+    document.getElementById("login").style.display="none";
+    document.getElementById("envelope").style.display="block";
+    rain();
+  }else{
+    alert("غلط 😅");
+  }
+}
+
+function openLetter(){
+  document.getElementById("envelope").style.display="none";
+
+  let paper=document.getElementById("paper");
+  paper.style.display="block";
+
+  let i=0;
+  function type(){
+    if(i<text.length){
+      paper.innerHTML += text[i];
+      i++;
+      setTimeout(type,40);
+    }
+  }
+  type();
+}
+
+/* 🌹❤️ مطر */
+function rain(){
+  setInterval(()=>{
+    let f=document.createElement("div");
+    f.className="fall";
+    f.innerHTML = Math.random()>0.5 ? "🌹" : "❤️";
+    f.style.left=Math.random()*100+"%";
+    f.style.fontSize=(15+Math.random()*20)+"px";
+    f.style.animationDuration=(3+Math.random()*3)+"s";
+    document.body.appendChild(f);
+
+    setTimeout(()=>f.remove(),6000);
+  },200);
+}
+
+</script>
+
+</body>
+</html>
